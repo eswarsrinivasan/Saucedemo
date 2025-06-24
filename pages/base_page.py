@@ -21,3 +21,6 @@ class Basepage():
     def go_to(self, url):
         self.driver.get(url)
 
+    def get_current_url(self):
+        return self.driver.current_url
+

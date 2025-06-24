@@ -11,12 +11,13 @@ class Inventory(Basepage):
     Product_Name_Locator = (By.XPATH, "//div[@class='inventory_item_name ']")
     Add_to_cart_button = (By.XPATH, ".//button[text()='Add to cart']")
     Remove_button = (By.XPATH, ".//button[text()='Remove']")
+    URL = "https://www.saucedemo.com/inventory.html"
 
     def find_product(self, product_name)  -> WebElement | None:
         all_products = self.wait.until(EC.visibility_of_all_elements_located(self.Product_Container))
         for product in all_products:
             try:
-                product_name_element = self.wait.until(EC.visibility_of_element_located(product, *self.Product_Name_Locator))
+                product_name_element = self.wait.until(EC.visibility_of_element_located(self.Product_Name_Locator))
                 if product_name_element.text == product_name:
                     return product
             except:
@@ -27,7 +28,7 @@ class Inventory(Basepage):
         product_container = self.find_product(product_name)
 
         if product_container:
-            add = self.wait.until(EC.element_to_be_clickable(product_container,*self.Add_to_cart_button))
+            add = self.wait.until(EC.element_to_be_clickable(self.Add_to_cart_button))
             add.click()
         else:
             raise ValueError("Product not found to add")
@@ -36,7 +37,7 @@ class Inventory(Basepage):
         product_container = self.find_product(product_name)
 
         if product_container:
-            remove_button = self.wait.until(EC.element_to_be_clickable(product_container,*self.Remove_button))
+            remove_button = self.wait.until(EC.element_to_be_clickable(self.Remove_button))
             remove_button.click()
         else:
             raise ValueError("Product not found to add")
