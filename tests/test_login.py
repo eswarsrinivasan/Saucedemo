@@ -5,13 +5,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.login_page import Login
 
 test_data = [
-        ("standard_user", "secret_sauce", "/inventory.html", None),  # Valid login
-        ("locked_out_user", "secret_sauce", None, "Epic sadface: Sorry, this user has been locked out."),  # Locked out user
-        ("invalid_user", "secret_sauce", None, "Epic sadface: Username and password do not match any user in this service"), # Invalid username
-        ("standard_user", "wrong_password", None, "Epic sadface: Username and password do not match any user in this service"), # Invalid password
-        ("", "secret_sauce", None, "Epic sadface: Username is required"), # Empty username
-        ("standard_user", "", None, "Epic sadface: Password is required"), # Empty password
-        ("", "", None, "Epic sadface: Username is required") # Both empty
+        ("standard_user", "secret_sauce", "/inventory.html", None),
+        ("locked_out_user", "secret_sauce", None, "Epic sadface: Sorry, this user has been locked out."),
+        ("invalid_user", "secret_sauce", None, "Epic sadface: Username and password do not match any user in this service"),
+        ("standard_user", "wrong_password", None, "Epic sadface: Username and password do not match any user in this service"),
+        ("", "secret_sauce", None, "Epic sadface: Username is required"),
+        ("standard_user", "", None, "Epic sadface: Password is required"),
+        ("", "", None, "Epic sadface: Username is required")
     ]
 
 
