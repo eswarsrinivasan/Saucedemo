@@ -14,7 +14,7 @@ def tests_Add_to_cart(setup, username, password, product):
     assert "/inventory.html" in setup.current_url
     item = Inventory(setup)
 
-    assert item.URL == item.get_current_url()
+    assert item.InventoryUrl == item.get_current_url()
     item.add_to_cart(product)
 
 @pytest.mark.parametrize("username, password, product", [("standard_user", "secret_sauce","Sauce Labs Fleece Jacket")])
@@ -24,7 +24,7 @@ def tests_remove_from_cart(setup, username, password, product):
     login.login(username, password)
     assert "/inventory.html" in setup.current_url
     item = Inventory(setup)
-    assert item.URL == item.get_current_url()
+    assert item.InventoryUrl == item.get_current_url()
     item.add_to_cart(product)
     item.remove_from_cart(product)
 

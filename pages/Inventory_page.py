@@ -1,23 +1,20 @@
-from os import remove
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .base_page import Basepage
+from pages.login_page import Login
 
-class Inventory(Basepage):
+class Inventory(Login):
     Product_Container = (By.XPATH, "//div[@class='inventory_item']")
     Product_Name_Locator = (By.XPATH, ".//div[@class='inventory_item_name ']")
     Add_to_cart_button = (By.XPATH, ".//button[text()='Add to cart']")
     Remove_button = (By.XPATH, ".//button[text()='Remove']")
-    URL = "https://www.saucedemo.com/inventory.html"
 
     def find_product(self, product_name)  -> WebElement | None:
         all_products = self.wait.until(
             EC.visibility_of_all_elements_located(self.Product_Container)
         )
-        print(f"DEBUG: Successfully found {len(all_products)} product containers.")
         for product in all_products:
             try:
 
