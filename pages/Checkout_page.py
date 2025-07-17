@@ -31,13 +31,13 @@ class Checkout(Basepage):
     def continue_button(self):
         self.click(self.CONTINUE_BUTTON)
 
-    def check_order(self, ordered_item):
+    def check_order(self):
+        ordered_items = []
         containers = self.wait.until(EC.visibility_of_all_elements_located(self.CART_ITEM))
         for container in containers:
             name_elem = container.find_element(*self.ITEM_NAME)
-            if name_elem.text.strip().lower() == ordered_item.strip().lower():
-                return True
-        return False
+            ordered_items.append(name_elem.text.strip())
+        return ordered_items
 
     def total_price(self):
         total_price = self.wait.until(EC.visibility_of_element_located(self.ITEM_PRICE)).text
