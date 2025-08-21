@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-from .Add_to_cart_page import AddToCart
+from .cart_page import AddToCart
 from .base_page import Basepage
 from pages.login_page import Login
 class Checkout(Basepage):

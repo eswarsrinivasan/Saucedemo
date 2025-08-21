@@ -4,7 +4,7 @@ import pytest
 from pages.Checkout_page import Checkout
 from pages.login_page import Login
 from pages.Inventory_page import Inventory
-from pages.Add_to_cart_page import AddToCart
+from pages.cart_page import AddToCart
 
 
 @pytest.mark.parametrize("url, username, password, itemlist,first_name, last_name, postal_code, total_cost",
@@ -13,7 +13,6 @@ def tests_checkout(setup, url, username, password, itemlist, first_name, last_na
     login = Login(setup)
     login.go_to(url)
     login.login(username, password)
-    time.sleep(2)
     assert "/inventory.html" in setup.current_url
     cart = AddToCart(setup)
     for item in itemlist:
