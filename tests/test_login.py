@@ -29,3 +29,12 @@ def tests_invalid_credentials(setup, username, password, expected_url, error_msg
     else:
         pytest.fail("Testdata is wrong")
 
+@pytest.mark.parametrize("username, password, expected_url, error_msg", [("standard_user", "secret_sauce", "/inventory.html", None)])
+def tests_valid_login(setup, username, password, expected_url, error_msg):
+    login = Login(setup)
+    login.go_to("https://www.saucedemo.com/")
+    login.login(username, password)
+    cv = setup.current_url
+    print(cv)
+
+
