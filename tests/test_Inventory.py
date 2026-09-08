@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.login_page import Login
 from pages.Inventory_page import Inventory
 
+@pytest.mark.regression
 @pytest.mark.parametrize("username, password, product", [("standard_user", "secret_sauce","Sauce Labs Backpack")])
 def tests_Add_to_cart(setup, username, password, product):
     login_obj = Login(setup)

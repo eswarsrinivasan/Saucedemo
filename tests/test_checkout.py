@@ -6,7 +6,7 @@ from pages.login_page import Login
 from pages.Inventory_page import Inventory
 from pages.cart_page import AddToCart
 
-
+@pytest.mark.regression
 @pytest.mark.parametrize("url, username, password, itemlist,first_name, last_name, postal_code, total_cost",
                          [("https://www.saucedemo.com/","standard_user","secret_sauce",["Sauce Labs Backpack","Sauce Labs Fleece Jacket"],"Killua","zoldyck","787554","86.38")])
 def tests_checkout(setup, url, username, password, itemlist, first_name, last_name, postal_code, total_cost):

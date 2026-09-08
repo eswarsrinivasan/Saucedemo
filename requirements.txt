@@ -1,0 +1,4 @@
+pytest
+selenium
+ollama
+pytest-html

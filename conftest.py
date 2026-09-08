@@ -21,6 +21,8 @@ def setup():
     chrome_options.add_argument("--disable-save-password-bubble") # Might target this specific bubble
     chrome_options.add_argument("--no-default-browser-check") # Sometimes helps with initial prompts
     chrome_options.add_argument("--disable-site-navigation-jingle") # Related to security warnings
+    chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument("--no-sandbox")
 
     # Other common arguments (keep if needed)
     chrome_options.add_argument("--start-maximized")
