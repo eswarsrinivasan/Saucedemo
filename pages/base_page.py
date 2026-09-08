@@ -11,39 +11,8 @@ class Basepage():
         self.driver = driver
         self.wait = WebDriverWait(driver,50)
 
-    def click(self, locator, retries= 2):
-        current_locator= locator
-        attempts = 0
-
-        while attempts <= retries:
-            try:
-                current_wait = self.wait if attempts == 0 else WebDriverWait(self.driver, 5)
-                print(f"current locator : {current_locator}")
-                current_wait.until(EC.visibility_of_element_located(current_locator)).click
-                return
-            except (TimeoutException, NoSuchElementException, InvalidSelectorException) as e:
-                attempts+=1
-                print(f"Attempts at healing : {attempts}")
-                if attempts > retries:
-                    print("Locator cannot be fixed by LLM")
-                    raise e
-            
-                page_html = self.driver.page_source
-                selector_type = current_locator[0]
-                locator_value = current_locator[1]
-                print(f"locator value: {locator_value}")
-                healed_locator = ai_heal(page_html, locator_value, selector_type)
-
-                if healed_locator:
-                    print(f"healed_locator: {healed_locator}")
-                    current_locator = (By.CSS_SELECTOR, healed_locator)
-                    print(f"healed_current_locator: {current_locator}")
-                else:
-                    print("Locator cannot be fixed by LLM")
-                    raise e
-                time.sleep(1)
-
-
+    def click(self, locator):
+        self.wait.until(EC.element_to_be_clickable(locator)).click()
 
     def sendkeys(self, locator, text):
         self.wait.until(EC.visibility_of_element_located(locator)).send_keys(text)
