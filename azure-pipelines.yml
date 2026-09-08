@@ -1,0 +1,36 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: none
+
+variables:
+  Test_Suite : 'smoke'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.11'
+
+- script: pip install -r requirements.txt
+  displayName: "Install dependencies"
+
+- script: |
+    pytest -m smoke --junitxml=$(Build.ArtifactStagingDirectory)/smoke.xml
+  displayName: 'Run Smoke tests'
+  condition: eq(variables['Test_Suite'], 'smoke')
+
+- script: |
+    pytest -m regression --junitxml=$(Build.ArtifactStagingDirectory)/smoke.xml
+  displayName: 'Run Regression tests'
+  condition: eq(variables['Test_Suite'], 'regression')
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/*.xml'
+    testRunTitle: 'Tests: $(TEST_SUITE)'
+  condition: always()
