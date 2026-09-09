@@ -23,7 +23,7 @@ steps:
   displayName: "Install dependencies"
 
 - script: |
-    pytest -m {{parameters.Test_Suite}} --junitxml=$(Build.ArtifactStagingDirectory)/smoke.xml
+    pytest -m ${{parameters.Test_Suite}} --junitxml=$(Build.ArtifactStagingDirectory)/smoke.xml
   displayName: 'Run pytest tests'
 
 - task: PublishTestResults@2
