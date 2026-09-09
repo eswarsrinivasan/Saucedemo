@@ -30,5 +30,5 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/*.xml'
-    testRunTitle: 'Tests: $(TEST_SUITE)'
+    testRunTitle: 'Tests: ${{parameters.Test_Suite}}'
   condition: always()
