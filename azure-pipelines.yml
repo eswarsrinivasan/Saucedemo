@@ -5,8 +5,11 @@
 
 trigger: none
 
-variables:
-  Test_Suite : 'smoke'
+parameters:
+  - name : "Test_Suite"
+    displayName: "Select which suite to run"
+    type: string
+    default: 'smoke'
 
 pool:
   vmImage: ubuntu-latest
@@ -20,17 +23,12 @@ steps:
   displayName: "Install dependencies"
 
 - script: |
-    pytest -m smoke --junitxml=$(Build.ArtifactStagingDirectory)/smoke.xml
-  displayName: 'Run Smoke tests'
-  condition: eq(variables['Test_Suite'], 'smoke')
+    pytest -m ${{parameters.Test_Suite}} --junitxml=$(Build.ArtifactStagingDirectory)/smoke.xml
+  displayName: 'Run pytest tests'
 
-- script: |
-    pytest -m regression --junitxml=$(Build.ArtifactStagingDirectory)/smoke.xml
-  displayName: 'Run Regression tests'
-  condition: eq(variables['Test_Suite'], 'regression')
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/*.xml'
-    testRunTitle: 'Tests: $(TEST_SUITE)'
+    testRunTitle: 'Tests: ${{parameters.Test_Suite}}'
   condition: always()
