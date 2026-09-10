@@ -10,6 +10,7 @@ class Inventory(Login):
     Product_Name_Locator = (By.XPATH, ".//div[@class='inventory_item_name ']")
     Add_to_cart_button = (By.XPATH, ".//button[text()='Add to cart']")
     Remove_button = (By.XPATH, ".//button[text()='Remove']")
+    InventoryUrl = "https://www.saucedemo.com/inventory.html"
 
     def find_product(self, product_name)  -> WebElement | None:
         all_products = self.wait.until(
