@@ -25,7 +25,7 @@ steps:
 - script: >
     pytest -m ${{parameters.Test_Suite}} 
     --junitxml= $(Build.ArtifactStagingDirectory)/${{parameters.Test_Suite}}.xml
-    --html= $(Build.ArtificalStagingDirectory)/report.html
+    --html= $(Build.ArtifactStagingDirectory)/report.html
   displayName: 'Run pytest tests'
 
 - task: PublishTestResults@2
