@@ -22,13 +22,22 @@ steps:
 - script: pip install -r requirements.txt
   displayName: "Install dependencies"
 
-- script: |
-    pytest -m ${{parameters.Test_Suite}} --junitxml=$(Build.ArtifactStagingDirectory)/smoke.xml
+- script: >
+    pytest -m ${{parameters.Test_Suite}} 
+    --junitxml= $(Build.ArtifactStagingDirectory)/${{parameters.Test_Suite}}.xml
+    --html= $(Build.ArtificalStagingDirectory)/report.html
   displayName: 'Run pytest tests'
 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/*.xml'
+    testResultsFiles: '$(Build.ArtifactStagingDirectory)/*.xml'
     testRunTitle: 'Tests: ${{parameters.Test_Suite}}'
+  condition: always()
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/report.html'
+    artifact: 'PytestHTMLReport'
+    publishLocation: 'pipeline'
   condition: always()
